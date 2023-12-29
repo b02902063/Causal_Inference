@@ -1,1 +1,2 @@
-# Causal_Inference
+# Causal_Discovery
+Ame AI Causal Discovery

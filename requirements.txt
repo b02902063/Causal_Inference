@@ -1,0 +1,16 @@
+functions-framework==3.*
+google-cloud-aiplatform
+google-cloud-storage
+torch==2.1.2
+torchvision==0.16.2
+pytorch_lightning
+fsspec
+pandas
+matplotlib
+numpy
+argparse
+pydot
+tensordict
+dataclasses_json
+mlflow
+gcsfs
