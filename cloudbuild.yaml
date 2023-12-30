@@ -1,4 +1,4 @@
 
 steps:
 - name: 'gcr.io/cloud-builders/gcloud'
-  args: ["functions", "deploy", "inference", "--region=asia-east1", "--source=.", "--trigger-http", "--runtime=python311", "--memory=4GB", "--cpu=2", "--env-vars-file=env.yaml"]
+  args: ["functions", "deploy", "inference", "--region=asia-east1", "--source=.", "--trigger-http", "--runtime=python311", "--memory=4GB", "--cpu=4", "--env-vars-file=env.yaml"]
