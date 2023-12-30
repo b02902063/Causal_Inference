@@ -7,6 +7,7 @@ from google.cloud import aiplatform
 import torch
 from causica.sem.distribution_parameters_sem import DistributionParametersSEM
 from tensordict import TensorDict
+from google.cloud import storage
 
 
 PROJECT_ID = "ameai-causal"
@@ -14,13 +15,24 @@ REGION = "asia-east1"
 MODEL_BUCKET_URI = "gs://causal_models"
 STAGING_BUCKET_URI = "gs://causal_data"
 
+storage_client = storage.Client()
+
+def get_model_from_gcs(bucket, name):
+    bucket = storage_client.get_bucket(bucket)
+    blob = bucket.blob(name)
+    with blob.open("rb") as f:
+        model = torch.load(f)   
+    return model
+    
+
 @functions_framework.http
 def inference(request):
     user_input = request.get_json()
     
     model_id = user_input["model_id"]
     
-    loaded_model = torch.load(os.path.join(MODEL_BUCKET_URI, model_id) + ".pt")
+    loaded_model = get_model_from_gcs(MODEL_BUCKET_URI, model_id + ".pt")
+    #torch.load(os.path.join(MODEL_BUCKET_URI, model_id) + ".pt")
     
     normalizer = loaded_model["normalizer"]
     graph = loaded_model["new_adg"]
