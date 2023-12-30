@@ -36,7 +36,7 @@ def inference(request):
     #torch.load(os.path.join(MODEL_BUCKET_URI, model_id) + ".pt")
     
     normalizer = loaded_model["normalizer"]
-    graph = loaded_model["new_adg"]
+    graph = loaded_model["new_adj"]
     model = loaded_model["model"]
     
     SEM_MODULE = lightning_module.sem_module()
