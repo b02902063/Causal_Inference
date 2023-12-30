@@ -12,6 +12,7 @@ from google.cloud import storage
 
 PROJECT_ID = "ameai-causal"
 REGION = "asia-east1"
+MODEL_BUCKET = "causal_models"
 MODEL_BUCKET_URI = "gs://causal_models"
 STAGING_BUCKET_URI = "gs://causal_data"
 
@@ -31,7 +32,7 @@ def inference(request):
     
     model_id = user_input["model_id"]
     
-    loaded_model = get_model_from_gcs(MODEL_BUCKET_URI, model_id + ".pt")
+    loaded_model = get_model_from_gcs(MODEL_BUCKET, model_id + ".pt")
     #torch.load(os.path.join(MODEL_BUCKET_URI, model_id) + ".pt")
     
     normalizer = loaded_model["normalizer"]
