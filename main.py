@@ -24,16 +24,25 @@ def get_model_from_gcs(bucket, name):
     with blob.open("rb") as f:
         model = torch.load(f)   
     return model
-    
 
+cached_model = {
+
+}
+ 
 @functions_framework.http
 def inference(request):
     user_input = request.get_json()
     
     model_id = user_input["model_id"]
     
-    loaded_model = get_model_from_gcs(MODEL_BUCKET, model_id + ".pt")
-    #torch.load(os.path.join(MODEL_BUCKET_URI, model_id) + ".pt")
+    if model_id in cached_model:
+        loaded_model = cached_model[model_id]
+    else:
+        loaded_model = get_model_from_gcs(MODEL_BUCKET, model_id + ".pt")
+        cached_model[model_id] = loaded_model
+        if len(cached_model) > 10:
+            oldest_cached_model = list(cached_model.keys())[0]
+            del cached_model[oldest_cached_model]
     
     normalizer = loaded_model["normalizer"]
     graph = loaded_model["adj"]
