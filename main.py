@@ -39,7 +39,7 @@ def inference(request):
     graph = loaded_model["adj"]
     model = loaded_model["model"]
     
-    SEM_MODULE = lightning_module.sem_module()
+    SEM_MODULE = model()
     sem = DistributionParametersSEM(graph, SEM_MODULE._noise_module, SEM_MODULE._functional_relationships)
     
     before = dict()
