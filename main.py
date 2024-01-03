@@ -28,5 +28,5 @@ def inference(request):
         json=user_input
     )
 
-    return response
+    return response.json()
     
