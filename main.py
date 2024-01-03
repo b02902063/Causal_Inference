@@ -8,6 +8,7 @@ import torch
 from causica.sem.distribution_parameters_sem import DistributionParametersSEM
 from tensordict import TensorDict
 from google.cloud import storage
+import requests
 
 
 PROJECT_ID = "ameai-causal"
